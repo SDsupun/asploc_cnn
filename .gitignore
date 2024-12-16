@@ -1,0 +1,9 @@
+/build
+/data
+/hello.c
+/hello.cp312-win_amd64.pyd
+/hello.py
+/lenet_model.pth
+/setup.py
+/test.ipynb
+/utils
