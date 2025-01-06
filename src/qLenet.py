@@ -22,25 +22,25 @@ def fs256_dequantize(X:np.matrix) -> np.matrix:
 class QLeNet():
     def __init__(self):
         # 1 input image channel, 6 output channels, 5x5 square conv kernel
-        with open('./data/np_data/cnv1wq.npy', 'wb') as f:
+        with open('../data/np_data/cnv1wq.npy', 'rb') as f:
             conv_layer_1w = np.load(f)
-        with open('./data/np_data/cnv1bq.npy', 'wb') as f:
+        with open('../data/np_data/cnv1bq.npy', 'rb') as f:
             conv_layer_1b = np.load(f)
-        with open('./data/np_data/cnv2wq.npy', 'wb') as f:
+        with open('../data/np_data/cnv2wq.npy', 'rb') as f:
             conv_layer_2w = np.load(f)
-        with open('./data/np_data/cnv2bq.npy', 'wb') as f:
+        with open('../data/np_data/cnv2bq.npy', 'rb') as f:
             conv_layer_2b = np.load(f)
-        with open('./data/np_data/den1wq.npy', 'wb') as f:
+        with open('../data/np_data/den1wq.npy', 'rb') as f:
             dense_1_w = np.load(f)
-        with open('./data/np_data/den1bq.npy', 'wb') as f:
+        with open('../data/np_data/den1bq.npy', 'rb') as f:
             dense_1_b = np.load(f)
-        with open('./data/np_data/den2wq.npy', 'wb') as f:
+        with open('../data/np_data/den2wq.npy', 'rb') as f:
             dense_2_w = np.load(f)
-        with open('./data/np_data/den2bq.npy', 'wb') as f:
+        with open('../data/np_data/den2bq.npy', 'rb') as f:
             dense_2_b = np.load(f)
-        with open('./data/np_data/den3wq.npy', 'wb') as f:
+        with open('../data/np_data/den3wq.npy', 'rb') as f:
             dense_3_w = np.load(f)
-        with open('./data/np_data/den3bq.npy', 'wb') as f:
+        with open('../data/np_data/den3bq.npy', 'rb') as f:
             dense_3_b = np.load(f)
         self.conv1 = self.Conv2d(1, 6, 5, conv_layer_1w, conv_layer_1b)
         self.conv2 = self.Conv2d(6, 16, 5, conv_layer_2w, conv_layer_2b)
@@ -98,21 +98,18 @@ class QLeNet():
 
         def dense(img:np.ndarray):
             return np.dot(myweight, img) +  mybias
-
         return dense
-    
-mmq = QLeNet()
 
-def qLenet_forward(x):
-    x = mmq.maxPool2d(mmq.myRelu(mmq.conv1(x)))
-    x = fs256_dequantize(x)
-    x = mmq.maxPool2d(mmq.myRelu(mmq.conv2(x)))
-    x = fs256_dequantize(x)
-    x = mmq.myReshape(x)
-    x = mmq.myRelu(mmq.fc1(x))
-    x = fs256_dequantize(x)
-    x = mmq.myRelu(mmq.fc2(x))
-    x = fs256_dequantize(x)
-    x = mmq.fc3(x)
-    x = fs256_dequantize(x)
-    return x
+    def qLenet_forward(self, x:np.ndarray):
+        x = self.maxPool2d(self.myRelu(self.conv1(x)))
+        x = fs256_dequantize(x)
+        x = self.maxPool2d(self.myRelu(self.conv2(x)))
+        x = fs256_dequantize(x)
+        x = self.myReshape(x)
+        x = self.myRelu(self.fc1(x))
+        x = fs256_dequantize(x)
+        x = self.myRelu(self.fc2(x))
+        x = fs256_dequantize(x)
+        x = self.fc3(x)
+        x = fs256_dequantize(x)
+        return x
