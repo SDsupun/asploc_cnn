@@ -1,5 +1,6 @@
 /build
-/data
+data/*
+!data/np_data
 /hello.c
 /hello.cp312-win_amd64.pyd
 /hello.py
@@ -7,6 +8,20 @@
 /setup.py
 /test.ipynb
 /utils
+
+*.sim
+*.runs
+*.cache
+.metadata
+*.data
+*.ipdefs
+.Xil
+asploc_cnn/asploc_cnn.sdk/*
+!asploc_cnn/asploc_cnn.sdk/qlenet
+*.hw
+*.ip_user_files
+.temp
+bd
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
