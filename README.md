@@ -10,7 +10,7 @@ This repository has two main part. The first part will train the LeNet model and
 
 The src/lenet_quantize.ipynb uses an existing well tuned LeNet architecture. First the model is trained and accuracy is checked using PyTorch. The model returned after this had 98.88% accuracy. Then the 2d convolution, dense connections, relu, and maxpool functions are decomposed to run on single thread. 
 
-The weights are biases then converted to scaled up quantized values by using fs256_quantize function. The reason to use scaling value 256 is because it was identified while using absmax_quantize function that the scaling factor  is in the range of 200. This will also help later when dequantizing the values on FPGA.
+The weights and biases then converted to scaled up quantized values by using fs256_quantize function. The reason to use scaling value 256 is because it was identified while using absmax_quantize function that the scaling factor  is in the range of 200. This will also help later when dequantizing the values on FPGA.
 
 The quantized weights and biases were used along with fs256_quantize and fs256_dequantize included between model layers. This modification caused the accuracy to drop to 96.08 %. The reduction in accuracy is caused by the quantization error. However, after adding input quantization with fs4_quantize function, the accuracy went back to 98.01 %.
 
