@@ -14,11 +14,11 @@ The weights and biases then converted to scaled up quantized values by using fs2
 
 The quantized weights and biases were used along with fs256_quantize and fs256_dequantize included between model layers. This modification caused the accuracy to drop to 96.08 %. The reduction in accuracy is caused by the quantization error. However, after adding input quantization with fs4_quantize function, the accuracy went back to 98.01 %.
 
-The quantized weights and biases are saved to data/np_data folder. Also the save weights are writen into .mem files to be used in Verilog code. 
+The quantized weights and biases are saved to data/np_data folder. Also the weights and biases are writen into .mem files to be used in Verilog code. 
 
 ### LeNet model on FPGA
 
-The relevant files including the Vivado project can be found in asploc_cnn folder. The implementation has two main sub-parts, conv2d and dense, which performs the 2d convolution and the dense connections. These two parts can also use individually if needed (This need a new NN architecture and re-train of the model) but here we are connecting them as similar to the software implementation. The top module is then wrapped with AXI general and streaming slave interfaces to work as a peripheral. 
+The relevant files including the Vivado project can be found in asploc_cnn folder. The implementation has two main sub-parts, conv2d and dense, which performs the 2d convolution and the dense connections. These two parts can also be used individually if needed (This needs a new NN architecture and re-train of the model) but here we are connecting them according to the LeNet architecture. The top module is then wrapped with AXI general and streaming slave interfaces to work as a peripheral. 
 
 This top module, lenet_v1_0_0, is connected as shown in below figure. 
 
