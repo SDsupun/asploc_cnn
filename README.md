@@ -2,6 +2,8 @@
 
 This project was carried out as a part of **Accelerating Systems with Programmable Logic Components(1DT109)** in Uppsala University. 
 
+![minized board](minized.jpg)
+
 ### Overview
 
 This repository has two main part. The first part will train the LeNet model and checks the quantization errors after quantizing weights and biases. The second part is to implement the python code on FPGA using Verilog. 
