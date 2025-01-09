@@ -36,7 +36,7 @@ The communication flow is shown in below diagram.
 
 ### Vivado Simulation
 
-In the simulation, the image is readed from a hex file and loaded to a ram and feeded to the top wrapper for **conv2d** and **dense**. Simulation code can be found in cnn_tb_top.v file. The AXI interfaces are omitted here for simplification. 
+In the simulation, the image is red from a hex file and loaded to a ram and feeded to the top wrapper for **conv2d** and **dense**. Simulation code can be found in cnn_tb_top.v file. The AXI interfaces are omitted here for simplification. 
 
 ![simulatin waveform](sim_1.png)
 
