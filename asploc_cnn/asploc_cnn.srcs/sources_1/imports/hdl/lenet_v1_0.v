@@ -18,7 +18,7 @@
 	)
 	(
 		// Users to add ports here
-
+		output wire [1:0] lenet_status_led_o,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -89,7 +89,7 @@
 	lenet_v1_0_S00_AXIS # ( 
 		.C_S_AXIS_TDATA_WIDTH(C_S00_AXIS_TDATA_WIDTH)
 	) lenet_v1_0_S00_AXIS_inst (
-		.lenet_busy(0),
+		.lenet_busy(cnv_busy),
 		.lenet_data(lenet_data),
 		.lenet_data_valid(lenet_data_valid),
 		.S_AXIS_ACLK(s00_axis_aclk),
@@ -113,6 +113,7 @@
 	wire [7:0] cnv_debug;
 	wire [7:0] dense_debug;
 
+	assign lenet_status_led_o  = {cnv_busy, den_done};
 	assign lenet_status = {	dense_debug, 
 							cnv_debug, 
 							4'b0, 

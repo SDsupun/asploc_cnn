@@ -35,7 +35,7 @@
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSABoardId" Val="minized"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="1003"/>
+    <Option Name="WTXSimLaunchSim" Val="1022"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -124,23 +124,23 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_lenet_v1_0_0_0/asploc_bd_lenet_v1_0_0_0.xci">
-          <Proxy FileSetName="asploc_bd_lenet_v1_0_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_axi_smc_0/asploc_bd_axi_smc_0.xci">
-          <Proxy FileSetName="asploc_bd_axi_smc_0"/>
+        <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_axi_dma_0_0/asploc_bd_axi_dma_0_0.xci">
+          <Proxy FileSetName="asploc_bd_axi_dma_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_processing_system7_0_0/asploc_bd_processing_system7_0_0.xci">
           <Proxy FileSetName="asploc_bd_processing_system7_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_axi_dma_0_0/asploc_bd_axi_dma_0_0.xci">
-          <Proxy FileSetName="asploc_bd_axi_dma_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_xbar_0/asploc_bd_xbar_0.xci">
           <Proxy FileSetName="asploc_bd_xbar_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_rst_ps7_0_50M_0/asploc_bd_rst_ps7_0_50M_0.xci">
           <Proxy FileSetName="asploc_bd_rst_ps7_0_50M_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_axi_smc_0/asploc_bd_axi_smc_0.xci">
+          <Proxy FileSetName="asploc_bd_axi_smc_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="asploc_bd.bd" FileRelPathName="ip/asploc_bd_lenet_v1_0_0_0/asploc_bd_lenet_v1_0_0_0.xci">
+          <Proxy FileSetName="asploc_bd_lenet_v1_0_0_0"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/bd/asploc_bd/hdl/asploc_bd_wrapper.v">

@@ -41,6 +41,7 @@
 /***************************** Include Files *********************************/
 
 #include "xaxidma.h"
+#include "xgpiops.h"
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xdebug.h"
@@ -166,6 +167,9 @@ static XAxiDma AxiDma;		/* Instance of the XAxiDma */
 
 static INTC Intc;	/* Instance of the Interrupt Controller */
 
+XGpioPs Gpio;	/* The driver instance for GPIO Device. */
+static u32 Output_Pin1; /* LED pin */
+static u32 Output_Pin2; /* LED pin */
 /*
  * Flags interrupt handlers use to notify the application context the events.
  */
@@ -199,10 +203,36 @@ int main(void)
 	u8 *TxBufferPtr;
 	u32 *LeNetDevice;
 	int predictDone = 0;
+	XGpioPs_Config *ConfigPtr;
 
 
 	TxBufferPtr = (u8 *)TX_BUFFER_BASE ;
 	LeNetDevice = (u32 *) XPAR_LENET_V1_0_0_BASEADDR;
+
+	/*
+	 * LED initialization
+	 */
+	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
+	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr,
+					ConfigPtr->BaseAddr);
+	/*
+	 * Set the direction for the pin to be output and
+	 * Enable the Output enable for the LED Pin.
+	 */
+	Output_Pin1 = 52;
+	Output_Pin2 = 53;
+	XGpioPs_SetDirectionPin(&Gpio, Output_Pin1, 1);
+	XGpioPs_SetOutputEnablePin(&Gpio, Output_Pin1, 1);
+	/*
+	 * Set the direction for the pin to be output and
+	 * Enable the Output enable for the LED Pin.
+	 */
+	XGpioPs_SetDirectionPin(&Gpio, Output_Pin2, 1);
+	XGpioPs_SetOutputEnablePin(&Gpio, Output_Pin2, 1);
+
+	XGpioPs_WritePin(&Gpio, Output_Pin1, 0x0);
+	XGpioPs_WritePin(&Gpio, Output_Pin2, 0x0);
+
 	/* Initial setup for Uart16550 */
 #ifdef XPAR_UARTNS550_0_BASEADDR
 
@@ -264,6 +294,7 @@ int main(void)
 	}
 	xil_printf("Lenet init status %x\r\n", LeNetDevice[0]);
 
+
 	/* Send a packet */
 	while(1) {
 
@@ -271,13 +302,16 @@ int main(void)
 		TxDone = 0;
 		Error = 0;
 
+		XGpioPs_WritePin(&Gpio, Output_Pin1, 0x1);
 		/* Wait for the image data.*/
 		Status = recieve_image(&RecvBuffer);
 		if (Status != XST_SUCCESS) {
 			xil_printf("UART receive Failed\r\n");
 			return XST_FAILURE;
 		}
+		XGpioPs_WritePin(&Gpio, Output_Pin1, 0x0);
 
+		XGpioPs_WritePin(&Gpio, Output_Pin2, 0x1);
 		for(Index = 0; Index < MAX_PKT_LEN; Index ++) {
 				TxBufferPtr[Index] = RecvBuffer[Index];
 //				xil_printf("UART receive val: %x\r\n", RecvBuffer[Index]);
@@ -312,6 +346,8 @@ int main(void)
 			LeNetDevice[0] = 0;
 		}
 #else
+
+
 		predictDone = LeNetDevice[0] & 0x00000100;
 		while(predictDone == 0){
 			predictDone = LeNetDevice[0] & 0x00000100;
@@ -326,6 +362,9 @@ int main(void)
 		xil_printf("debug signal %x\r\n", LeNetDevice[0]);
 		LeNetDevice[0] = 0;
 		xil_printf("debug signal %x\r\n", LeNetDevice[0]);
+
+		XGpioPs_WritePin(&Gpio, Output_Pin1, 0x0);
+		XGpioPs_WritePin(&Gpio, Output_Pin2, 0x0);
 #endif
 		if (Error) {
 			xil_printf("Failed test transmit%s done, "
@@ -338,6 +377,7 @@ int main(void)
 
 	}
 
+	XGpioPs_WritePin(&Gpio, Output_Pin1, 0x1);
 
 	xil_printf("Successfully ran AXI DMA interrupt Example\r\n");
 

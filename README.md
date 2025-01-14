@@ -85,7 +85,7 @@ The driver files for LeNet IP can be found in asploc_cnn/asploc_cnn.sdk/qlenet. 
 
 ### Results
 
-The LeNet IP returns 84.33% accuracy when evaluated over 10000 images. Possible reasons for the accuracy drop can be the quantization and rounding errors.
+The LeNet IP returns 84.33% accuracy when evaluated over 10000 images. Possible reasons for the accuracy drop can be the quantization and rounding errors. It is observed that different model parameters gives from different training events gives similar accuracy in software but the when deployed on hardware, they have a big difference in accuracy. 
 
 It takes around 20min to run all 10000 predictions with the communication flow mentioned above. The LeNet IP is idle most of the time which can be seen by the active PL-LED connected to the IP and most of the time is consumed by the UART connection to receive data. 
 

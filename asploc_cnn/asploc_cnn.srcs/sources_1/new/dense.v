@@ -220,7 +220,7 @@ module dense(
 
     assign dense_debug_o = {2'b0, current_state};
     assign img_data_s = img_data_i;
-    assign done_o = ((relu_i == FS_3_ROW_SIZE) && (current_state == S_OUTD));
+    assign done_o = ((relu_i == FS_3_ROW_SIZE-1) && (current_state == S_OUTD));
     assign result_o = result;
     assign img_data_read_o = conv_img_data_read;
     assign relu_img_addr_i = (current_state == S_RELU)? mat_i_d2: 0;
@@ -581,7 +581,7 @@ module dense(
     always @(posedge clk) begin
         if (current_state == S_RELU) begin
             fs1_relu_out_data[relu_img_addr_o] <= relu_img_data_o;
-        end
+    end
     end
     
     always @(posedge clk, negedge rst_n) begin
@@ -626,7 +626,7 @@ module dense(
             r_max_val <= 8'h0;
         end else begin
             if (current_state == S_OUTD) begin
-                if(relu_i < FS_3_ROW_SIZE) begin
+                if(relu_i < FS_3_ROW_SIZE-1) begin
                     relu_i <= relu_i +1;
                 end else begin
                     relu_i <= relu_i;
@@ -639,7 +639,7 @@ module dense(
                     if (relu_i == 0) begin
                         result <= 1; // since the extra relu used in HW compared to SW
                     end else begin
-                        result <= result;
+                    result <= result;
                     end
                 end
 
